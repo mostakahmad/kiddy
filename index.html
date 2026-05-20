@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SpeakScript - Coding for Kids</title>
+
+  <!-- Local Bootstrap -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- Preconnect for fonts if online, fallback to sans-serif locally -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar ss-navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand ss-brand" href="#">
+        <span class="ss-logo-emoji">✨</span> SpeakScript
+      </a>
+      <div class="d-flex align-items-center gap-2">
+        <div class="dropdown">
+          <button class="btn ss-btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            📚 Load Example
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" id="example-dropdown-menu">
+            <!-- Populated by JS -->
+          </ul>
+        </div>
+        <button class="btn ss-btn-danger" id="btn-reset-progress">Reset All</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="ss-hero text-center px-3 py-4">
+    <h1 class="ss-hero-title">Write simple English code.<br>Watch your story come alive!</h1>
+    <p class="ss-hero-subtitle">A magically easy programming language for kids.</p>
+    <button class="btn ss-btn-primary mt-3 px-4 py-2" id="hero-start-btn">Start Coding 🚀</button>
+  </div>
+
+  <!-- WORKSPACE -->
+  <div class="container-fluid ss-workspace" id="workspace">
+    <div class="row h-100 g-3">
+
+      <!-- LEFT: Guide & Missions (3 cols on lg) -->
+      <div class="col-lg-3 col-md-4 h-100 ss-col-left d-flex flex-column">
+        <div class="ss-panel ss-nav-panel">
+          <button class="ss-nav-btn active" data-panel="guide">📖 Guide</button>
+          <button class="ss-nav-btn" data-panel="missions">🎯 Missions</button>
+          <button class="ss-nav-btn" data-panel="saved">💾 Saved</button>
+        </div>
+        <div class="ss-panel flex-grow-1 overflow-auto ss-side-panel">
+          <div id="panel-guide"></div>
+          <div id="panel-missions" class="d-none"></div>
+          <div id="panel-saved" class="d-none"></div>
+        </div>
+      </div>
+
+      <!-- CENTER: Code Editor (4 cols on lg) -->
+      <div class="col-lg-4 col-md-8 h-100 d-flex flex-column ss-col-center">
+        <!-- Editor Header -->
+        <div class="ss-editor-header d-flex justify-content-between align-items-center">
+          <div class="ss-editor-title">✏️ Your Code</div>
+          <div class="ss-editor-actions">
+            <button class="btn ss-btn-icon" id="btn-clear" title="Clear Code">🗑️</button>
+            <button class="btn ss-btn-icon" id="btn-save" title="Save Program">💾</button>
+            <button class="btn ss-btn-icon" id="btn-download" title="Download Code">📥</button>
+          </div>
+        </div>
+
+        <!-- Editor Area -->
+        <div class="flex-grow-1 position-relative ss-editor-wrap">
+          <div class="ss-line-numbers" id="ss-line-numbers"></div>
+          <textarea class="ss-editor" id="ss-editor" spellcheck="false" placeholder="scene &quot;school&quot;&#10;&#10;Rafi appears&#10;Rafi says &quot;Hello!&quot;"></textarea>
+        </div>
+
+        <!-- Controls -->
+        <div class="ss-editor-controls p-2 mt-2 rounded">
+          <button class="btn ss-btn-run w-100" id="btn-run">▶️ RUN CODE</button>
+          <button class="btn ss-btn-stop w-100 d-none" id="btn-stop">⏹️ STOP</button>
+        </div>
+
+        <!-- Error Panel -->
+        <div class="ss-error-panel mt-2 d-none" id="ss-error-panel"></div>
+      </div>
+
+      <!-- RIGHT: Output Stage (5 cols on lg) -->
+      <div class="col-lg-5 col-12 h-100 d-flex flex-column ss-col-right">
+        
+        <!-- Stage controls -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="ss-panel-title m-0">📺 Live Output</div>
+          <button class="btn ss-btn-mini bg-white border" id="btn-reset">🔄 Reset Stage</button>
+        </div>
+
+        <!-- The Stage -->
+        <div class="ss-stage" id="ss-stage"></div>
+
+        <!-- Logs & Score Area bottom of stage -->
+        <div class="row mt-2 g-2 flex-grow-1">
+          <div class="col-7 d-flex flex-column">
+            <div class="ss-log-panel flex-grow-1" id="ss-log" placeholder="..."></div>
+          </div>
+          <div class="col-5 d-flex flex-column gap-2">
+            <div class="ss-score-panel text-center" id="ss-score">🏆 Score: 0</div>
+            <div class="ss-vocab-panel flex-grow-1 d-flex flex-column gap-2" id="ss-vocab"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Badge Popup Overlay -->
+  <div class="ss-badge-overlay d-none" id="ss-badge-overlay">
+    <div class="ss-badge-popup ss-anim-jump">
+      <div class="ss-badge-text" id="ss-badge-text">🎉 Mission Complete!</div>
+      <p class="text-muted mt-2 mb-0" style="font-size:0.9rem">Click to close</p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="ss-toast" class="ss-toast d-none">Saved!</div>
+
+  <!-- Local Scripts -->
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  
+  <script src="assets/js/lexer.js"></script>
+  <script src="assets/js/parser.js"></script>
+  <script src="assets/js/errors.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/examples.js"></script>
+  <script src="assets/js/missions.js"></script>
+  
+  <script src="assets/js/runtime.js"></script>
+  <script src="assets/js/interpreter.js"></script>
+  
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
