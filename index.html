@@ -32,44 +32,44 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar navbar-expand bg-white border-bottom shadow-sm fixed-top" style="z-index: 1030;">
-    <div class="container-fluid">
+  <nav class="navbar navbar-expand bg-white border-bottom shadow-sm fixed-top py-1" style="z-index: 1030; height: 56px;">
+    <div class="container-fluid px-2 px-md-3">
       <div class="d-flex align-items-center">
-        <button class="btn btn-light me-2 border border-secondary border-opacity-25 d-flex align-items-center justify-content-center shadow-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#leftMenu" aria-controls="leftMenu" style="width: 44px; height: 44px;" title="Open Menu">
-          <span class="fs-5">☰</span>
+        <button class="btn btn-light me-2 border border-secondary border-opacity-25 d-flex align-items-center justify-content-center shadow-sm rounded-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#leftMenu" aria-controls="leftMenu" style="width: 38px; height: 38px;" title="Open Menu">
+          <span class="fs-5 fw-bold text-dark">☰</span>
         </button>
         <a class="navbar-brand fw-bold text-dark m-0 d-flex align-items-center" href="#">
-          <span class="fs-4 me-1">✨</span> SpeakScript
+          <span class="fs-5 me-1">✨</span> <span style="font-size: 1.15rem;">SpeakScript</span>
         </a>
         <span class="d-none d-lg-inline text-muted ms-3 small border-start ps-3 border-2 fw-medium">Write simple English code. Watch your story come alive!</span>
       </div>
       <div class="d-flex align-items-center gap-2">
         <div class="dropdown">
-          <button class="btn btn-outline-secondary btn-sm dropdown-toggle fw-bold py-2 px-3 shadow-sm" type="button" data-bs-toggle="dropdown">
+          <button class="btn btn-light border btn-sm dropdown-toggle fw-bold py-1 px-3 shadow-sm rounded-pill text-dark" type="button" data-bs-toggle="dropdown">
             📚 Examples
           </button>
-          <ul class="dropdown-menu dropdown-menu-end shadow border-0" id="example-dropdown-menu">
+          <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3 mt-2" id="example-dropdown-menu">
             <!-- Populated by JS -->
           </ul>
         </div>
-        <button class="btn btn-outline-danger btn-sm fw-bold py-2 px-3 shadow-sm" id="btn-reset-progress">Reset</button>
+        <button class="btn btn-danger btn-sm fw-bold py-1 px-3 shadow-sm rounded-pill text-white" id="btn-reset-progress">Reset</button>
       </div>
     </div>
   </nav>
 
   <!-- OFFCANVAS LEFT MENU -->
-  <div class="offcanvas offcanvas-start shadow-lg" tabindex="-1" id="leftMenu">
-    <div class="offcanvas-header border-bottom bg-light">
-      <h5 class="offcanvas-title fw-bold text-dark"><span class="text-primary me-2">✨</span> Menu</h5>
+  <div class="offcanvas offcanvas-start shadow-lg border-0" tabindex="-1" id="leftMenu" style="width: 320px;">
+    <div class="offcanvas-header border-bottom bg-light py-3">
+      <h5 class="offcanvas-title fw-bold text-dark m-0 d-flex align-items-center"><span class="fs-4 me-2">📚</span> SpeakScript Menu</h5>
       <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body p-0 d-flex flex-column bg-light">
-      <div class="ss-nav-panel m-0 p-3 border-bottom bg-white d-flex gap-2">
-        <button class="ss-nav-btn active flex-fill rounded fw-bold shadow-sm" data-panel="guide">📖 Guide</button>
-        <button class="ss-nav-btn flex-fill rounded fw-bold shadow-sm" data-panel="missions">🎯 Missions</button>
-        <button class="ss-nav-btn flex-fill rounded fw-bold shadow-sm" data-panel="saved">💾 Saved</button>
+      <div class="ss-nav-panel m-0 p-2 border-bottom bg-white d-flex gap-1 shadow-sm position-sticky top-0" style="z-index: 10;">
+        <button class="ss-nav-btn active flex-fill rounded bg-light border-0 fw-bold py-2 text-dark" data-panel="guide">📖 Guide</button>
+        <button class="ss-nav-btn flex-fill rounded bg-light border-0 fw-bold py-2 text-secondary" data-panel="missions">🎯 Missions</button>
+        <button class="ss-nav-btn flex-fill rounded bg-light border-0 fw-bold py-2 text-secondary" data-panel="saved">💾 Saved</button>
       </div>
-      <div class="p-3 flex-grow-1 overflow-auto ss-side-panel">
+      <div class="p-3 flex-grow-1 overflow-auto bg-light ss-side-panel">
         <div id="panel-guide"></div>
         <div id="panel-missions" class="d-none"></div>
         <div id="panel-saved" class="d-none"></div>
@@ -78,52 +78,58 @@
   </div>
 
   <!-- WORKSPACE -->
-  <div class="container-xl ss-workspace" id="workspace" style="padding-top: 80px; padding-bottom: 40px; min-height: 100vh;">
-    
-    <!-- Output Panel (Full Width, Top) -->
-    <div class="mb-5 bg-white p-3 rounded-4 shadow-sm border">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5 class="m-0 fw-bold text-dark d-flex align-items-center"><span class="me-2 fs-3">📺</span> Live Output</h5>
-        <button class="btn btn-sm btn-light border fw-bold text-dark shadow-sm px-3" id="btn-reset">🔄 Reset Stage</button>
+  <div class="container-fluid ss-workspace" id="workspace" style="margin-top: 56px; height: calc(100vh - 56px); padding: 12px; overflow: hidden;">
+    <div class="row h-100 g-3 m-0">
+      
+      <!-- Code Editor (Left half on Desktop) -->
+      <div class="col-lg-5 col-xl-6 h-100 d-flex flex-column p-0 pe-lg-2">
+        <div class="d-flex flex-column bg-white rounded-3 shadow-sm border h-100 p-2 overflow-hidden">
+          <div class="bg-dark text-white rounded-top-2 px-3 py-2 d-flex justify-content-between align-items-center flex-shrink-0 shadow-sm border border-dark">
+            <div class="fw-bold fs-6 d-flex align-items-center"><span class="me-2 text-warning fs-5">✏️</span><span style="letter-spacing: 0.5px;">Your Code</span></div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-outline-secondary text-light border-0 py-1 px-2 rounded-2 fw-medium shadow-sm" id="btn-clear" title="Clear Code" style="background: rgba(255,255,255,0.1);"><span class="me-1">🗑️</span> Clear</button>
+              <button class="btn btn-sm btn-outline-secondary text-light border-0 py-1 px-2 rounded-2 fw-medium shadow-sm" id="btn-save" title="Save Program" style="background: rgba(255,255,255,0.1);"><span class="me-1">💾</span> Save</button>
+              <button class="btn btn-sm btn-outline-secondary text-light border-0 py-1 px-2 rounded-2 fw-medium shadow-sm d-none d-md-block" id="btn-download" title="Download Code" style="background: rgba(255,255,255,0.1);"><span class="me-1">📥</span> Download</button>
+            </div>
+          </div>
+
+          <div class="d-flex border border-dark border-top-0 rounded-bottom-2 ss-editor-wrap flex-grow-1 position-relative shadow-inner" style="background: #1e1e1e; min-height: 0;">
+            <div class="ss-line-numbers border-end border-secondary pt-3 pe-2 text-end text-muted" id="ss-line-numbers" style="width: 45px; font-size: 1.05rem; font-family: var(--font-code); user-select: none;"></div>
+            <textarea class="ss-editor flex-grow-1 p-3 border-0 text-white" id="ss-editor" style="background: transparent; outline: none; box-shadow: none; font-size: 1.2rem; font-family: var(--font-code); line-height: 1.6; resize: none;" spellcheck="false" placeholder="scene &quot;school&quot;&#10;&#10;Rafi appears&#10;Rafi says &quot;Hello!&quot;"></textarea>
+          </div>
+
+          <div class="d-flex gap-2 mt-2 flex-shrink-0">
+            <button class="btn btn-success flex-fill fw-bold py-2 fs-5 text-uppercase shadow-sm ss-btn-run border-0 rounded-2 text-white d-flex align-items-center justify-content-center gap-2" id="btn-run" style="background: linear-gradient(180deg, #10b981 0%, #059669 100%); transition: transform 0.1s, box-shadow 0.1s;"><span style="filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));">▶️</span> RUN SCRIPT</button>
+            <button class="btn btn-danger flex-fill fw-bold py-2 fs-5 text-uppercase shadow-sm ss-btn-stop border-0 rounded-2 d-none text-white d-flex align-items-center justify-content-center gap-2" id="btn-stop" style="background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%); transition: transform 0.1s, box-shadow 0.1s;"><span style="filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));">⏹️</span> STOP</button>
+          </div>
+          
+          <div class="ss-error-panel mt-2 d-none shadow-sm rounded-2 flex-shrink-0" id="ss-error-panel" style="padding: 10px; font-size: 0.9rem;"></div>
+        </div>
       </div>
       
-      <div class="ss-stage w-100 rounded-3 shadow-inner border border-2 border-dark" id="ss-stage" style="min-height: 45vh; position: relative;"></div>
+      <!-- Output Panel (Right half on Desktop) -->
+      <div class="col-lg-7 col-xl-6 h-100 d-flex flex-column p-0 ps-lg-2 mt-3 mt-lg-0">
+        <div class="d-flex flex-column bg-white rounded-3 shadow-sm border h-100 p-2 overflow-hidden">
+          <div class="d-flex justify-content-between align-items-center mb-2 px-2 flex-shrink-0">
+            <h6 class="m-0 fw-bold text-dark d-flex align-items-center"><span class="me-2 text-primary fs-5">📺</span> Live Output Stage</h6>
+            <button class="btn btn-sm btn-light border border-secondary border-opacity-25 fw-bold text-dark py-1 px-3 shadow-sm rounded-pull" id="btn-reset">🔄 Reset</button>
+          </div>
+          
+          <div class="ss-stage w-100 rounded-2 shadow-inner border border-2 border-dark flex-grow-1 position-relative" id="ss-stage" style="min-height: 200px; overflow: hidden; background: linear-gradient(180deg,#e8eaf6 0%,#e8eaf6 60%,#cfd8dc 100%); box-shadow: inset 0 5px 15px rgba(0,0,0,0.05);"></div>
 
-      <div class="row g-3 mt-1">
-        <div class="col-lg-8 col-12">
-          <div class="ss-log-panel w-100 rounded-3 shadow-sm border border-secondary" id="ss-log" style="height: 130px;"></div>
-        </div>
-        <div class="col-lg-4 col-12 d-flex flex-column gap-3">
-          <div class="ss-score-panel w-100 rounded-3 shadow-sm d-flex align-items-center justify-content-center m-0 border" id="ss-score" style="height: 60px; font-size: 1.4rem;">🏆 Score: 0</div>
-          <div class="ss-vocab-panel w-100 rounded-3 shadow-sm bg-light border" id="ss-vocab" style="height: calc(130px - 60px - 1rem); padding: 5px;"></div>
+          <div class="row g-2 mt-2 flex-shrink-0" style="height: 120px;">
+            <div class="col-sm-7 h-100">
+              <div class="ss-log-panel w-100 h-100 rounded-2 shadow-sm border border-secondary p-2" id="ss-log" style="overflow-y: auto; background: #1e1e1e; font-size: 0.85rem; color: #a5d6a7; font-family: var(--font-code);"></div>
+            </div>
+            <div class="col-sm-5 h-100 d-flex flex-column gap-2">
+              <div class="ss-score-panel w-100 rounded-2 shadow-sm d-flex align-items-center justify-content-center m-0 border border-warning" id="ss-score" style="background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%); color: #856404; font-weight: bold; font-size: 1.25rem; flex: 0 0 45%;">🏆 Score: 0</div>
+              <div class="ss-vocab-panel w-100 rounded-2 shadow-sm bg-white border border-info overflow-auto p-1" id="ss-vocab" style="flex: 1 1 auto; font-size: 0.85rem; background: #f8fbff;"></div>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
-
-    <!-- Code Editor (Full Width, Bottom) -->
-    <div class="d-flex flex-column bg-white p-3 rounded-4 shadow-sm border">
-      <div class="bg-dark text-white rounded-top-3 px-4 py-3 d-flex justify-content-between align-items-center shadow-sm">
-        <div class="fw-bold fs-5 d-flex align-items-center"><span class="me-2">✏️</span> Your Code</div>
-        <div class="d-flex gap-2">
-          <button class="btn btn-sm btn-outline-light border-0 rounded fw-medium" id="btn-clear" title="Clear Code">🗑️ Clear</button>
-          <button class="btn btn-sm btn-outline-light border-0 rounded fw-medium" id="btn-save" title="Save Program">💾 Save</button>
-          <button class="btn btn-sm btn-outline-light border-0 rounded fw-medium" id="btn-download" title="Download Code">📥 Download</button>
-        </div>
-      </div>
-
-      <div class="d-flex border border-dark border-top-0 rounded-bottom-3 ss-editor-wrap bg-dark shadow-sm position-relative" style="height: 45vh; min-height: 350px;">
-        <div class="ss-line-numbers border-end border-secondary pt-3" id="ss-line-numbers" style="width: 55px; background: #1e1e1e; font-size: 1.05rem;"></div>
-        <textarea class="ss-editor flex-grow-1 p-3 border-0" id="ss-editor" style="background: #252526; color: #f8f9fa; outline: none; box-shadow: none; font-size: 1.15rem; font-family: var(--font-code); line-height: 1.6;" spellcheck="false" placeholder="scene &quot;school&quot;&#10;&#10;Rafi appears&#10;Rafi says &quot;Hello!&quot;"></textarea>
-      </div>
-
-      <div class="d-flex gap-3 mt-4">
-        <button class="btn btn-success flex-fill fw-bold py-3 fs-4 text-uppercase shadow-sm ss-btn-run border-0 rounded-3 text-white" id="btn-run" style="background: #10b981; transition: transform 0.2s, box-shadow 0.2s;">▶️ Run Code</button>
-        <button class="btn btn-danger flex-fill fw-bold py-3 fs-4 text-uppercase shadow-sm ss-btn-stop border-0 rounded-3 d-none text-white" id="btn-stop" style="transition: transform 0.2s, box-shadow 0.2s;">⏹️ Stop Running</button>
-      </div>
-      
-      <div class="ss-error-panel mt-3 d-none shadow-sm rounded-3 border-danger border-opacity-25" id="ss-error-panel"></div>
-    </div>
-    
   </div>
 
   <!-- Badge Popup Overlay -->
