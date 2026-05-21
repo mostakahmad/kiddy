@@ -102,6 +102,13 @@
       UI.clearErrors();
       UI.setRunning(true);
 
+      if (window.innerWidth < 992) {
+        var stageEl = $id('ss-stage');
+        if (stageEl) {
+          stageEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
       var ast;
       try {
         ast = Parser.parseProgram(code);
