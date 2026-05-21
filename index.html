@@ -32,104 +32,98 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar ss-navbar">
+  <nav class="navbar navbar-expand bg-white border-bottom shadow-sm fixed-top" style="z-index: 1030;">
     <div class="container-fluid">
-      <a class="navbar-brand ss-brand" href="#">
-        <span class="ss-logo-emoji">✨</span> SpeakScript
-      </a>
+      <div class="d-flex align-items-center">
+        <button class="btn btn-light me-2 border border-secondary border-opacity-25 d-flex align-items-center justify-content-center shadow-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#leftMenu" aria-controls="leftMenu" style="width: 44px; height: 44px;" title="Open Menu">
+          <span class="fs-5">☰</span>
+        </button>
+        <a class="navbar-brand fw-bold text-dark m-0 d-flex align-items-center" href="#">
+          <span class="fs-4 me-1">✨</span> SpeakScript
+        </a>
+        <span class="d-none d-lg-inline text-muted ms-3 small border-start ps-3 border-2 fw-medium">Write simple English code. Watch your story come alive!</span>
+      </div>
       <div class="d-flex align-items-center gap-2">
         <div class="dropdown">
-          <button class="btn ss-btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            📚 Load Example
+          <button class="btn btn-outline-secondary btn-sm dropdown-toggle fw-bold py-2 px-3 shadow-sm" type="button" data-bs-toggle="dropdown">
+            📚 Examples
           </button>
-          <ul class="dropdown-menu dropdown-menu-end" id="example-dropdown-menu">
+          <ul class="dropdown-menu dropdown-menu-end shadow border-0" id="example-dropdown-menu">
             <!-- Populated by JS -->
           </ul>
         </div>
-        <button class="btn ss-btn-danger" id="btn-reset-progress">Reset All</button>
+        <button class="btn btn-outline-danger btn-sm fw-bold py-2 px-3 shadow-sm" id="btn-reset-progress">Reset</button>
       </div>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <div class="ss-hero text-center px-3 py-4">
-    <h1 class="ss-hero-title">Write simple English code.<br>Watch your story come alive!</h1>
-    <p class="ss-hero-subtitle">A magically easy programming language for kids.</p>
-    <button class="btn ss-btn-primary mt-3 px-4 py-2" id="hero-start-btn">Start Coding 🚀</button>
+  <!-- OFFCANVAS LEFT MENU -->
+  <div class="offcanvas offcanvas-start shadow-lg" tabindex="-1" id="leftMenu">
+    <div class="offcanvas-header border-bottom bg-light">
+      <h5 class="offcanvas-title fw-bold text-dark"><span class="text-primary me-2">✨</span> Menu</h5>
+      <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body p-0 d-flex flex-column bg-light">
+      <div class="ss-nav-panel m-0 p-3 border-bottom bg-white d-flex gap-2">
+        <button class="ss-nav-btn active flex-fill rounded fw-bold shadow-sm" data-panel="guide">📖 Guide</button>
+        <button class="ss-nav-btn flex-fill rounded fw-bold shadow-sm" data-panel="missions">🎯 Missions</button>
+        <button class="ss-nav-btn flex-fill rounded fw-bold shadow-sm" data-panel="saved">💾 Saved</button>
+      </div>
+      <div class="p-3 flex-grow-1 overflow-auto ss-side-panel">
+        <div id="panel-guide"></div>
+        <div id="panel-missions" class="d-none"></div>
+        <div id="panel-saved" class="d-none"></div>
+      </div>
+    </div>
   </div>
 
   <!-- WORKSPACE -->
-  <div class="container-fluid ss-workspace" id="workspace">
-    <div class="row h-100 g-3">
+  <div class="container-xl ss-workspace" id="workspace" style="padding-top: 80px; padding-bottom: 40px; min-height: 100vh;">
+    
+    <!-- Output Panel (Full Width, Top) -->
+    <div class="mb-5 bg-white p-3 rounded-4 shadow-sm border">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="m-0 fw-bold text-dark d-flex align-items-center"><span class="me-2 fs-3">📺</span> Live Output</h5>
+        <button class="btn btn-sm btn-light border fw-bold text-dark shadow-sm px-3" id="btn-reset">🔄 Reset Stage</button>
+      </div>
+      
+      <div class="ss-stage w-100 rounded-3 shadow-inner border border-2 border-dark" id="ss-stage" style="min-height: 45vh; position: relative;"></div>
 
-      <!-- LEFT: Guide & Missions (3 cols on lg) -->
-      <div class="col-lg-3 col-md-4 h-100 ss-col-left d-flex flex-column">
-        <div class="ss-panel ss-nav-panel">
-          <button class="ss-nav-btn active" data-panel="guide">📖 Guide</button>
-          <button class="ss-nav-btn" data-panel="missions">🎯 Missions</button>
-          <button class="ss-nav-btn" data-panel="saved">💾 Saved</button>
+      <div class="row g-3 mt-1">
+        <div class="col-lg-8 col-12">
+          <div class="ss-log-panel w-100 rounded-3 shadow-sm border border-secondary" id="ss-log" style="height: 130px;"></div>
         </div>
-        <div class="ss-panel flex-grow-1 overflow-auto ss-side-panel">
-          <div id="panel-guide"></div>
-          <div id="panel-missions" class="d-none"></div>
-          <div id="panel-saved" class="d-none"></div>
+        <div class="col-lg-4 col-12 d-flex flex-column gap-3">
+          <div class="ss-score-panel w-100 rounded-3 shadow-sm d-flex align-items-center justify-content-center m-0 border" id="ss-score" style="height: 60px; font-size: 1.4rem;">🏆 Score: 0</div>
+          <div class="ss-vocab-panel w-100 rounded-3 shadow-sm bg-light border" id="ss-vocab" style="height: calc(130px - 60px - 1rem); padding: 5px;"></div>
         </div>
       </div>
-
-      <!-- CENTER: Code Editor (4 cols on lg) -->
-      <div class="col-lg-4 col-md-8 h-100 d-flex flex-column ss-col-center">
-        <!-- Editor Header -->
-        <div class="ss-editor-header d-flex justify-content-between align-items-center">
-          <div class="ss-editor-title">✏️ Your Code</div>
-          <div class="ss-editor-actions">
-            <button class="btn ss-btn-icon" id="btn-clear" title="Clear Code">🗑️</button>
-            <button class="btn ss-btn-icon" id="btn-save" title="Save Program">💾</button>
-            <button class="btn ss-btn-icon" id="btn-download" title="Download Code">📥</button>
-          </div>
-        </div>
-
-        <!-- Editor Area -->
-        <div class="flex-grow-1 position-relative ss-editor-wrap">
-          <div class="ss-line-numbers" id="ss-line-numbers"></div>
-          <textarea class="ss-editor" id="ss-editor" spellcheck="false" placeholder="scene &quot;school&quot;&#10;&#10;Rafi appears&#10;Rafi says &quot;Hello!&quot;"></textarea>
-        </div>
-
-        <!-- Controls -->
-        <div class="ss-editor-controls p-2 mt-2 rounded">
-          <button class="btn ss-btn-run w-100" id="btn-run">▶️ RUN CODE</button>
-          <button class="btn ss-btn-stop w-100 d-none" id="btn-stop">⏹️ STOP</button>
-        </div>
-
-        <!-- Error Panel -->
-        <div class="ss-error-panel mt-2 d-none" id="ss-error-panel"></div>
-      </div>
-
-      <!-- RIGHT: Output Stage (5 cols on lg) -->
-      <div class="col-lg-5 col-12 h-100 d-flex flex-column ss-col-right">
-        
-        <!-- Stage controls -->
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <div class="ss-panel-title m-0">📺 Live Output</div>
-          <button class="btn ss-btn-mini bg-white border" id="btn-reset">🔄 Reset Stage</button>
-        </div>
-
-        <!-- The Stage -->
-        <div class="ss-stage" id="ss-stage"></div>
-
-        <!-- Logs & Score Area bottom of stage -->
-        <div class="row mt-2 g-2 flex-grow-1">
-          <div class="col-7 d-flex flex-column">
-            <div class="ss-log-panel flex-grow-1" id="ss-log" placeholder="..."></div>
-          </div>
-          <div class="col-5 d-flex flex-column gap-2">
-            <div class="ss-score-panel text-center" id="ss-score">🏆 Score: 0</div>
-            <div class="ss-vocab-panel flex-grow-1 d-flex flex-column gap-2" id="ss-vocab"></div>
-          </div>
-        </div>
-
-      </div>
-
     </div>
+
+    <!-- Code Editor (Full Width, Bottom) -->
+    <div class="d-flex flex-column bg-white p-3 rounded-4 shadow-sm border">
+      <div class="bg-dark text-white rounded-top-3 px-4 py-3 d-flex justify-content-between align-items-center shadow-sm">
+        <div class="fw-bold fs-5 d-flex align-items-center"><span class="me-2">✏️</span> Your Code</div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-sm btn-outline-light border-0 rounded fw-medium" id="btn-clear" title="Clear Code">🗑️ Clear</button>
+          <button class="btn btn-sm btn-outline-light border-0 rounded fw-medium" id="btn-save" title="Save Program">💾 Save</button>
+          <button class="btn btn-sm btn-outline-light border-0 rounded fw-medium" id="btn-download" title="Download Code">📥 Download</button>
+        </div>
+      </div>
+
+      <div class="d-flex border border-dark border-top-0 rounded-bottom-3 ss-editor-wrap bg-dark shadow-sm position-relative" style="height: 45vh; min-height: 350px;">
+        <div class="ss-line-numbers border-end border-secondary pt-3" id="ss-line-numbers" style="width: 55px; background: #1e1e1e; font-size: 1.05rem;"></div>
+        <textarea class="ss-editor flex-grow-1 p-3 border-0" id="ss-editor" style="background: #252526; color: #f8f9fa; outline: none; box-shadow: none; font-size: 1.15rem; font-family: var(--font-code); line-height: 1.6;" spellcheck="false" placeholder="scene &quot;school&quot;&#10;&#10;Rafi appears&#10;Rafi says &quot;Hello!&quot;"></textarea>
+      </div>
+
+      <div class="d-flex gap-3 mt-4">
+        <button class="btn btn-success flex-fill fw-bold py-3 fs-4 text-uppercase shadow-sm ss-btn-run border-0 rounded-3 text-white" id="btn-run" style="background: #10b981; transition: transform 0.2s, box-shadow 0.2s;">▶️ Run Code</button>
+        <button class="btn btn-danger flex-fill fw-bold py-3 fs-4 text-uppercase shadow-sm ss-btn-stop border-0 rounded-3 d-none text-white" id="btn-stop" style="transition: transform 0.2s, box-shadow 0.2s;">⏹️ Stop Running</button>
+      </div>
+      
+      <div class="ss-error-panel mt-3 d-none shadow-sm rounded-3 border-danger border-opacity-25" id="ss-error-panel"></div>
+    </div>
+    
   </div>
 
   <!-- Badge Popup Overlay -->
