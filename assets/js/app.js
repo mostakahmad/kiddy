@@ -22,7 +22,7 @@
     if (!Parser || !Errors || !Runtime || !Storage || !Interpreter) {
       document.body.innerHTML =
         '<div style="padding:40px;font-family:sans-serif;color:red;">' +
-        '<h2>⚠️ SpeakScript failed to load</h2>' +
+        '<h2>⚠️ KiddyFun Code failed to load</h2>' +
         '<p>One or more script files could not be loaded. Please check:<br>' +
         '• All files in <code>assets/js/</code> exist<br>' +
         '• You opened <code>index.html</code> directly in a browser<br>' +
@@ -116,7 +116,7 @@
       }
     }
 
-    console.log('✅ SpeakScript v0.1 ready');
+    console.log('✅ KiddyFun Code v0.1 ready');
 
     /* ── Run ──────────────────────────────────────────────────── */
     function runProgram() {
