@@ -10,8 +10,7 @@
     'right','left','hides','shows','show','word','means','narrator',
     'wait','second','seconds','ask','choice','correct','wrong',
     'repeat','times','if','answer','is','else','end','score','starts',
-    'at','add','points','play','sound','flaps','teacher','seller','buyer',
-    'clap','success','dances','bows','runs'
+    'at','add','points','play','sound','flaps','clap','success','dances','bows','runs'
   ]);
 
   const TOKEN_TYPES = {
