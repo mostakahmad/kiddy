@@ -228,6 +228,10 @@
             });
           }
           self._addLog('📝 Answer: ' + ch.text + ' (' + ch.result + ')');
+          setTimeout(function() {
+            box.classList.add('ss-anim-hide');
+            setTimeout(function() { if (box.parentNode) box.remove(); }, 500);
+          }, 2000);
           if (onAnswer) onAnswer(ch.result);
         });
         btnWrap.appendChild(btn);
