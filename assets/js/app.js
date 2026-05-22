@@ -87,11 +87,34 @@
     bind('btn-save',     function () { UI.promptSaveProgram(); });
     bind('btn-download', function () { UI.downloadProgram(); });
     bind('btn-reset-progress', resetProgress);
+    bind('btn-toggle-code', toggleCodePanel);
     bind('hero-start-btn', function () {
       var ws = $id('workspace');
       if (ws) ws.scrollIntoView({ behavior: 'smooth' });
     });
     bind('ss-badge-overlay', function () { $id('ss-badge-overlay').classList.add('d-none'); });
+
+    var codeVisible = true;
+    function toggleCodePanel() {
+      var codeCol = $id('code-col');
+      var outCol  = $id('output-col');
+      var toggleBtn = $id('btn-toggle-code');
+      if (codeVisible) {
+        codeCol.classList.remove('d-flex');
+        codeCol.classList.add('d-none');
+        outCol.classList.replace('col-lg-7', 'col-lg-12');
+        outCol.classList.replace('col-xl-6', 'col-xl-12');
+        toggleBtn.style.setProperty('display', 'block', 'important');
+        codeVisible = false;
+      } else {
+        codeCol.classList.remove('d-none');
+        codeCol.classList.add('d-flex');
+        outCol.classList.replace('col-lg-12', 'col-lg-7');
+        outCol.classList.replace('col-xl-12', 'col-xl-6');
+        toggleBtn.style.setProperty('display', 'none', 'important');
+        codeVisible = true;
+      }
+    }
 
     console.log('✅ SpeakScript v0.1 ready');
 
@@ -107,6 +130,8 @@
         if (stageEl) {
           stageEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+      } else if (codeVisible) {
+        toggleCodePanel();
       }
 
       var ast;
