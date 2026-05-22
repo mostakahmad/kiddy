@@ -201,19 +201,24 @@ Rabiul appears
 narrator says "Mostak, Sagor, and Rabiul are friends from class 6."
 narrator says "They graduated in CSE from the same institution."
 
+Mostak runs
 Mostak moves right
 Mostak smiles
 Mostak says "Friends, it is time we do something for our hometown Cumilla."
+
+Sagor walks
+Sagor nods
 Sagor says "I agree. We should teach kids how to code!"
-Rabiul jumps
+
+Rabiul cheers
 Rabiul says "That is a brilliant idea! Programming is the future."
 
-wait 1 second
-
 Mostak says "But how do we make coding easy for kids?"
-Sagor smiles
+
+Sagor handshakes
 Sagor says "We can create a new, fun programming language."
 
+Rabiul runs
 Rabiul moves left
 Rabiul says "Let us call it kiddyFun!"
 Rabiul says "It will teach them logic and English together."
@@ -222,6 +227,7 @@ show word "logic" means "যুক্তি"
 show word "future" means "ভবিষ্যৎ"
 show word "programming" means "প্রোগ্রামিং"
 
+Mostak walks
 Mostak says "Let us test our idea. I will ask a question."
 
 ask "Why should kids learn to code?"
@@ -229,6 +235,7 @@ choice "To build games and solve problems" correct
 choice "To sleep all day" wrong
 
 if answer is correct
+    Mostak nods
     Mostak says "Exactly! Problem-solving is a great skill."
     play sound "success"
     add 10 points
@@ -236,13 +243,12 @@ else
     Mostak says "No, that is not right. Coding helps solve problems!"
 end
 
-wait 1 second
-
 ask "Where will we start our first course?"
 choice "Dhaka" wrong
 choice "Cumilla" correct
 
 if answer is correct
+    Sagor cheers
     Sagor says "Yes! Cumilla is our hometown."
     play sound "success"
     add 10 points
@@ -252,7 +258,7 @@ end
 
 show score
 
-Rabiul waves
+Rabiul handshakes
 Rabiul says "I am so excited to see kids writing their first code."
 Sagor says "Me too! We will open it next month."
 

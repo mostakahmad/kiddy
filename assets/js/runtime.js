@@ -130,7 +130,8 @@
         var animMap = {
           waves: 'ss-anim-wave', smiles: 'ss-anim-smile', jumps: 'ss-anim-jump',
           flies: 'ss-anim-fly', flaps: 'ss-anim-fly', hides: 'ss-anim-hide',
-          shows: 'ss-anim-fadein', runs: 'ss-anim-jump', dances: 'ss-anim-wave', bows: 'ss-anim-bow',
+          shows: 'ss-anim-fadein', runs: 'ss-anim-run', dances: 'ss-anim-wave', bows: 'ss-anim-bow',
+          walks: 'ss-anim-walk', handshakes: 'ss-anim-handshake', nods: 'ss-anim-nod', cheers: 'ss-anim-jump',
         };
         this._animateChar(key, animMap[action] || 'ss-anim-jump');
       }

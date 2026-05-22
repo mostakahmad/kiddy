@@ -243,7 +243,7 @@
     if (verb === 'says')    { this.advance(); var text = this.expectString(line, actor + ' says "Hello!"'); this.restOfLine(line); return { type: 'say', actor: actor, text: text, line: line }; }
     if (verb === 'moves')   { this.advance(); var dirTok = this.advance(); var dir = dirTok ? dirTok.value : 'right'; this.restOfLine(line); return { type: 'action', actor: actor, action: 'moves_' + dir, line: line }; }
 
-    var simpleActions = ['waves','smiles','jumps','flies','hides','shows','flaps','runs','dances','bows'];
+    var simpleActions = ['waves','smiles','jumps','flies','hides','shows','flaps','runs','dances','bows','walks','handshakes','nods','cheers'];
     if (simpleActions.indexOf(verb) !== -1) {
       this.advance(); this.restOfLine(line);
       return { type: 'action', actor: actor, action: verb, line: line };
